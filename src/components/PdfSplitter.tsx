@@ -676,6 +676,11 @@ const App: React.FC = () => {
               q: "Is this tool really free?",
               a: "Yes! PDF Splitter Pro is completely free to use. There are no limits on the number of files you can process or the number of pages in your PDF. We believe in providing powerful, private tools for everyone.",
               icon: <CheckCircle className="w-5 h-5 text-blue-500" />
+            },
+            {
+              q: "What are the common use cases?",
+              a: "This tool is perfect for splitting bulk scan documents like invoices, certificates, or student records. It's especially useful when you need to rename files systematically using patterns, manual lists, or mapping data directly from a CSV file.",
+              icon: <FileText className="w-5 h-5 text-purple-500" />
             }
           ].map((faq, i) => (
             <FaqItem key={i} question={faq.q} answer={faq.a} icon={faq.icon} />
