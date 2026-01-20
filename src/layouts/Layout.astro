@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
-const { title = "PDF Splitter & Renamer" } = Astro.props;
+const { 
+	title = "PDF Splitter Pro - Private & Secure PDF Splitting",
+	description = "The fastest and most secure way to split multi-page PDFs locally in your browser. Rename files with custom templates, manual lists, or CSV data mapping. No file uploads required."
+} = Astro.props;
 ---
 
 <html lang="en">
@@ -9,7 +12,23 @@ const { title = "PDF Splitter & Renamer" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
+		
+		<!-- SEO Meta Tags -->
 		<title>{title}</title>
+		<meta name="description" content={description} />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content="/metaimage.jpeg" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content="/metaimage.jpeg" />
+
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 		<style is:global>
 			body { font-family: 'Inter', sans-serif; }

@@ -1,5 +1,7 @@
 # PDF Splitter Pro
 
+![PDF Splitter Pro](public/metaimage.jpeg)
+
 Split multi-page PDFs locally with private, fast, and secure processing. Built with AstroJS, React, and Tailwind CSS.
 
 ## Features
