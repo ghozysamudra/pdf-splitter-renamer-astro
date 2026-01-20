@@ -16,7 +16,12 @@ import {
   Type,
   ChevronRight,
   ListOrdered,
-  FileSearch
+  FileSearch,
+  ChevronDown,
+  ShieldCheck,
+  Cpu,
+  HelpCircle,
+  Zap
 } from 'lucide-react';
 import { parseCsv, splitPdf, generateFileName } from '../services/pdfService';
 import type { CsvRow, ProcessingStatus, FileData, NamingConfig, NamingStrategy } from '../types';
@@ -25,6 +30,32 @@ import { PDFDocument } from 'pdf-lib';
 
 // Set up worker
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://esm.sh/pdfjs-dist@4.0.379/build/pdf.worker.mjs';
+
+const FaqItem: React.FC<{ question: string; answer: string; icon: React.ReactNode }> = ({ question, answer, icon }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className={`group rounded-3xl border-2 transition-all overflow-hidden ${isOpen ? 'border-indigo-100 bg-indigo-50/30' : 'border-gray-100 bg-white hover:border-indigo-50'}`}>
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full p-6 text-left flex items-center justify-between gap-4"
+      >
+        <div className="flex items-center gap-4">
+          <div className={`p-2 rounded-xl transition-colors ${isOpen ? 'bg-white' : 'bg-gray-50 group-hover:bg-indigo-50'}`}>
+            {icon}
+          </div>
+          <span className="font-bold text-gray-900">{question}</span>
+        </div>
+        <ChevronRight className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'rotate-90 text-indigo-600' : ''}`} />
+      </button>
+      <div className={`px-6 overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 pb-6 opacity-100' : 'max-h-0 opacity-0'}`}>
+        <p className="text-sm text-gray-500 font-medium leading-relaxed pl-14">
+          {answer}
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   const [pdfFile, setPdfFile] = useState<FileData | null>(null);
@@ -290,8 +321,8 @@ const App: React.FC = () => {
                     key={strat}
                     onClick={() => setNamingConfig(prev => ({ ...prev, strategy: strat }))}
                     className={`flex-1 min-w-[100px] py-2.5 px-4 rounded-xl text-sm font-black transition-all capitalize whitespace-nowrap ${namingConfig.strategy === strat
-                        ? 'bg-white text-indigo-600 shadow-sm border border-indigo-50'
-                        : 'text-gray-500 hover:text-gray-700'
+                      ? 'bg-white text-indigo-600 shadow-sm border border-indigo-50'
+                      : 'text-gray-500 hover:text-gray-700'
                       }`}
                   >
                     {strat === 'default' ? 'Source' : strat === 'custom' ? 'Template' : strat === 'csv' ? 'CSV File' : 'Manual List'}
@@ -526,8 +557,8 @@ const App: React.FC = () => {
               onClick={handleProcess}
               disabled={!pdfFile || (namingConfig.strategy === 'csv' && !csvFile)}
               className={`px-16 py-6 rounded-3xl font-black text-xl text-white shadow-[0_20px_50px_rgba(79,70,229,0.3)] flex items-center gap-4 transition-all transform hover:scale-105 active:scale-95 group ${(!pdfFile || (namingConfig.strategy === 'csv' && !csvFile))
-                  ? 'bg-slate-200 cursor-not-allowed opacity-50 shadow-none grayscale'
-                  : 'bg-indigo-600 hover:bg-indigo-700 ring-8 ring-indigo-50'
+                ? 'bg-slate-200 cursor-not-allowed opacity-50 shadow-none grayscale'
+                : 'bg-indigo-600 hover:bg-indigo-700 ring-8 ring-indigo-50'
                 }`}
             >
               <Scissors className="w-7 h-7 group-hover:rotate-12 transition-transform" />
@@ -613,6 +644,44 @@ const App: React.FC = () => {
           </div>
         )}
       </div>
+
+      {/* FAQ Section */}
+      <section className="mt-32 max-w-3xl mx-auto">
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center gap-3 px-4 py-2 bg-indigo-50 text-indigo-600 rounded-2xl text-xs font-black uppercase tracking-widest mb-4">
+            <HelpCircle className="w-4 h-4" />
+            Common Questions
+          </div>
+          <h2 className="text-3xl font-black text-gray-900">Frequently Asked Questions</h2>
+        </div>
+
+        <div className="space-y-4">
+          {[
+            {
+              q: "How do I use PDF Splitter Pro?",
+              a: "It's simple: Upload your PDF file, choose how you want to name the resulting files (using the source name, a custom template, a manual list, or even data from a CSV), and click 'Split & Zip Locally'. The app will process everything and give you a ZIP file containing your individual pages.",
+              icon: <Zap className="w-5 h-5 text-amber-500" />
+            },
+            {
+              q: "How does the processing work?",
+              a: "We use high-performance libraries like pdf-lib and pdfjs-dist powered by WebAssembly. This allows the application to read, extract, and re-generate PDF documents directly in your browser's memory without ever sending files to a server.",
+              icon: <Cpu className="w-5 h-5 text-indigo-500" />
+            },
+            {
+              q: "Is my data secure?",
+              a: "Absolutely. Security is our top priority. Because all document manipulation happens locally on your device (client-side), your sensitive data never leaves your computer. We don't have a backend that stores or even sees your files.",
+              icon: <ShieldCheck className="w-5 h-5 text-green-500" />
+            },
+            {
+              q: "Is this tool really free?",
+              a: "Yes! PDF Splitter Pro is completely free to use. There are no limits on the number of files you can process or the number of pages in your PDF. We believe in providing powerful, private tools for everyone.",
+              icon: <CheckCircle className="w-5 h-5 text-blue-500" />
+            }
+          ].map((faq, i) => (
+            <FaqItem key={i} question={faq.q} answer={faq.a} icon={faq.icon} />
+          ))}
+        </div>
+      </section>
 
       <footer className="mt-32 text-center border-t border-slate-100 pt-16">
         <div className="inline-flex items-center gap-4 bg-slate-50 px-6 py-3 rounded-2xl mb-4 border border-slate-100 shadow-inner">
