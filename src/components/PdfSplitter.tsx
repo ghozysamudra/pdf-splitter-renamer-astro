@@ -195,17 +195,19 @@ const PdfSplitter: React.FC = () => {
       <Header />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 items-start">
-        <PdfInput
-          pdfFile={pdfFile}
-          pdfPageCount={pdfPageCount}
-          pdfPreviewUrl={pdfPreviewUrl}
-          isDraggingPdf={isDraggingPdf}
-          onPdfUpload={handlePdfUpload}
-          onRemovePdf={() => setPdfFile(null)}
-          onDragOver={(e) => handleDragOver(e, setIsDraggingPdf)}
-          onDragLeave={(e) => handleDragLeave(e, setIsDraggingPdf)}
-          onDrop={(e) => handleDrop(e, 'pdf', setIsDraggingPdf)}
-        />
+        <div className="lg:col-span-4">
+          <PdfInput
+            pdfFile={pdfFile}
+            pdfPageCount={pdfPageCount}
+            pdfPreviewUrl={pdfPreviewUrl}
+            isDraggingPdf={isDraggingPdf}
+            onPdfUpload={handlePdfUpload}
+            onRemovePdf={() => setPdfFile(null)}
+            onDragOver={(e) => handleDragOver(e, setIsDraggingPdf)}
+            onDragLeave={(e) => handleDragLeave(e, setIsDraggingPdf)}
+            onDrop={(e) => handleDrop(e, 'pdf', setIsDraggingPdf)}
+          />
+        </div>
 
         <div className="lg:col-span-8 space-y-8">
           <NamingConfigPanel
