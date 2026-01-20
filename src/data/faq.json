@@ -1,0 +1,32 @@
+[
+    {
+        "q": "What are the common use cases?",
+        "a": "This tool is perfect for splitting bulk scan documents like invoices, certificates, or student records. It's especially useful when you need to rename files systematically using patterns, manual lists, or mapping data directly from a CSV file.",
+        "iconType": "FileText",
+        "iconColor": "text-purple-500"
+    },
+    {
+        "q": "How do I use PDF Splitter Pro?",
+        "a": "It's simple: Upload your PDF file, choose how you want to name the resulting files (using the source name, a custom template, a manual list, or even data from a CSV), and click 'Split & Zip Locally'. The app will process everything and give you a ZIP file containing your individual pages.",
+        "iconType": "Zap",
+        "iconColor": "text-amber-500"
+    },
+    {
+        "q": "How does the processing work?",
+        "a": "We use high-performance libraries like pdf-lib and pdfjs-dist powered by WebAssembly. This allows the application to read, extract, and re-generate PDF documents directly in your browser's memory without ever sending files to a server.",
+        "iconType": "Cpu",
+        "iconColor": "text-indigo-500"
+    },
+    {
+        "q": "Is my data secure?",
+        "a": "Absolutely. Security is our top priority. Because all document manipulation happens locally on your device (client-side), your sensitive data never leaves your computer. We don't have a backend that stores or even sees your files.",
+        "iconType": "ShieldCheck",
+        "iconColor": "text-green-500"
+    },
+    {
+        "q": "Is this tool really free?",
+        "a": "Yes! PDF Splitter Pro is completely free to use. There are no limits on the number of files you can process or the number of pages in your PDF. We believe in providing powerful, private tools for everyone.",
+        "iconType": "CheckCircle",
+        "iconColor": "text-blue-500"
+    }
+]
